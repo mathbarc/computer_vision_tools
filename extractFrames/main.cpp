@@ -11,6 +11,7 @@ int main(int argc, char** argv){
 	}
 
 	cv::VideoCapture video(argv[1]);
+	//
 
 
 
