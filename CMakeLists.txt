@@ -1,0 +1,18 @@
+project("Computer Vision Tools")
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
+
+IF(WIN32)
+cmake_policy(SET CMP0020 NEW)
+cmake_policy(SET CMP0054 NEW)
+ENDIF()
+
+add_subdirectory(CameraMarker)
+add_subdirectory(extractFrames)
+add_subdirectory(TsaiCalibration)
+add_subdirectory(vidInfo)
+add_subdirectory(vidSync)
+add_subdirectory(BackgroundModel)
+add_subdirectory(GroundTruth)
+add_subdirectory(GroundTruthMerge)
