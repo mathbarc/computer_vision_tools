@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <boost/filesystem.hpp>
 
 int main(int argc, char** argv){
 	if(argc<4){
@@ -10,12 +11,10 @@ int main(int argc, char** argv){
 		exit(-1);
 	}
 
-	cv::VideoCapture video(argv[1]);
-	//
+    boost::filesystem::path videoPath(argv[1]);
+    cv::VideoCapture video(argv[1]);
 
-
-
-	int frame_bin = round(1/atof(argv[2]));
+    int frame_bin = atoi(argv[2]);
 
 	std::fstream file(argv[4],std::ios::out);
 	file<<"<?xml version=\"1.0\"?>\n<opencv_storage>\n<images>";
@@ -24,7 +23,7 @@ int main(int argc, char** argv){
 	int n = 0;
 	while(1){
 		std::stringstream ss;
-		ss <<argv[3] <<"/"<< i << ".png";
+        ss <<argv[3] <<"/"<< videoPath.stem().string() << "_"<< i << ".png";
 		video>>frame;
 		if(frame.empty())
 			break;
