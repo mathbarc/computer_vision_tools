@@ -9,6 +9,7 @@ cmake_policy(SET CMP0054 NEW)
 ENDIF()
 
 add_subdirectory(CameraMarker)
+add_subdirectory(DatasetLabeler)
 add_subdirectory(extractFrames)
 add_subdirectory(TsaiCalibration)
 add_subdirectory(vidInfo)

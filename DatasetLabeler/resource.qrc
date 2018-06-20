@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/CameraMarker">
+        <file>resources/logo63.png</file>
+    </qresource>
+</RCC>
