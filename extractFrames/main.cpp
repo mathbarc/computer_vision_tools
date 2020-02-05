@@ -30,7 +30,7 @@ int main(int argc, char** argv){
 		n++;
 		file<<ss.str()<<"\n";
 		cv::imwrite(ss.str(),frame);
-		video.set(CV_CAP_PROP_POS_FRAMES,i);
+        video.set(cv::CAP_PROP_POS_FRAMES,i);
 		i+=frame_bin;
 	}
 	std::cout<<n<<" frames extraídos"<<std::endl;

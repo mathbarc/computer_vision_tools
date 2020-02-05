@@ -11,7 +11,7 @@ VideoProcessor::VideoProcessor(std::string path_to_video)
     if(!this->cap.isOpened()){
         throw std::string("Não foi possível abrir o vídeo.");
     }
-    this->waitPeriod = 1e6/(this->cap.get(CV_CAP_PROP_FPS));
+    this->waitPeriod = 1e6/(this->cap.get(cv::CAP_PROP_FPS));
     this->pauseStream = true;
 }
 
@@ -34,10 +34,10 @@ void VideoProcessor::next()
 
 void VideoProcessor::previous()
 {
-    double fcount = this->cap.get(CV_CAP_PROP_FRAME_COUNT);
+    double fcount = this->cap.get(cv::CAP_PROP_FRAME_COUNT);
     fcount-=2;
-    this->cap.get(CV_CAP_PROP_FRAME_COUNT);
-    this->cap.set(CV_CAP_PROP_FRAME_COUNT,fcount);
+    this->cap.get(cv::CAP_PROP_FRAME_COUNT);
+    this->cap.set(cv::CAP_PROP_FRAME_COUNT,fcount);
 
     this->cap >> this->frame;
 

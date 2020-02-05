@@ -29,9 +29,9 @@ QImage Controller::cvToQImage(cv::Mat img){
     {
         cv::Vec3b cor = img.at<cv::Vec3b>(markers.image[i]);
         if(cor[0] == 0 && cor[1] == 255 && cor[2] == 0)
-            cv::circle(img,markers.image[i],3,cv::Scalar(255,0,0),CV_FILLED);
+            cv::circle(img,markers.image[i],3,cv::Scalar(255,0,0),cv::FILLED);
         else
-            cv::circle(img,markers.image[i],3,cv::Scalar(0,255,0),CV_FILLED);
+            cv::circle(img,markers.image[i],3,cv::Scalar(0,255,0),cv::FILLED);
     }
 
     QImage to_show(img.cols, img.rows, QImage::Format_ARGB32);

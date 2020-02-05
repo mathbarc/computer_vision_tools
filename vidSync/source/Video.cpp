@@ -13,7 +13,7 @@ using namespace std;
 ********************************************************************************************/
 
 void Video::atualizar(int posicao){
-	this->video->set(CV_CAP_PROP_POS_FRAMES,posicao);
+    this->video->set(cv::CAP_PROP_POS_FRAMES,posicao);
 	*(this->video) >> this->frameAtual;
 	imshow(this->janela, this->frameAtual);
 }
@@ -36,10 +36,10 @@ Video::Video(string caminho)
 	this->janela = caminho;
 	*(this->video) >> this->frameAtual;
 	namedWindow(caminho,WINDOW_NORMAL);
-	this->nframes = this->video->get(CV_CAP_PROP_FRAME_COUNT);
-	this->fps = this->video->get(CV_CAP_PROP_FPS);
-	this->resolucao = Size((int) this->video->get(CV_CAP_PROP_FRAME_WIDTH),
-                  	(int) this->video->get(CV_CAP_PROP_FRAME_HEIGHT));
+    this->nframes = this->video->get(cv::CAP_PROP_FRAME_COUNT);
+    this->fps = this->video->get(cv::CAP_PROP_FPS);
+    this->resolucao = Size((int) this->video->get(cv::CAP_PROP_FRAME_WIDTH),
+                    (int) this->video->get(cv::CAP_PROP_FRAME_HEIGHT));
 	imshow(this->janela,this->frameAtual);	
 }
 

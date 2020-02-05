@@ -2,7 +2,7 @@ set( CMAKE_AUTOMOC ON )
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
 
 find_package(Qt5Widgets REQUIRED)
-find_package(OpenCV 3 COMPONENTS core highgui videoio imgcodecs imgproc calib3d)
+find_package(OpenCV 4 COMPONENTS core highgui videoio imgcodecs imgproc calib3d)
 
 if(${OpenCV_FOUND})
 else()

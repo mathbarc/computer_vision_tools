@@ -68,14 +68,14 @@ int main(int argc, char** argv)
 
 
 
-    int maxPosition = cap.get(CV_CAP_PROP_FRAME_COUNT);
+    int maxPosition = cap.get(cv::CAP_PROP_FRAME_COUNT);
     out.open(argv[3], std::fstream::out);
 
     cv::namedWindow("Video", cv::WINDOW_NORMAL);
     cv::setMouseCallback("Video",mouse_callback);
     for(position = 0; position <= maxPosition; position += step)
     {
-        cap.set(CV_CAP_PROP_POS_FRAMES, position);
+        cap.set(cv::CAP_PROP_POS_FRAMES, position);
         cap >> img;
         if(img.empty())
             break;

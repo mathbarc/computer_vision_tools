@@ -1,4 +1,4 @@
-find_package(OpenCV 3 COMPONENTS core highgui imgproc videoio imgcodecs)
+find_package(OpenCV 4 COMPONENTS core highgui imgproc videoio imgcodecs)
 
 if(${OpenCV_FOUND})
 else()

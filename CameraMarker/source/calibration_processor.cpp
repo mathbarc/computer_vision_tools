@@ -48,7 +48,7 @@ void CalibrationProcessor::zhengCalibration()
 
     cv::calibrateCamera(world, image, this->size, calibrationMatrix,
                         distortionCoeff, rvecs, tvecs,
-                        CV_CALIB_ZERO_TANGENT_DIST );
+                        cv::CALIB_ZERO_TANGENT_DIST );
 
     cv::FileStorage file(path, cv::FileStorage::WRITE);
     file<<"type"<<"zheng";

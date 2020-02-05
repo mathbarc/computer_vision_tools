@@ -40,7 +40,7 @@ int main(int argc, char* args[]){
 	stringstream name;
 	for(int i = 0; i<videos.size();i++){
         name << i << ".avi";
-        out.push_back(new VideoWriter(name.str(),CV_FOURCC('D','I','V','X'),videos[i]->fps,videos[i]->resolucao));
+        out.push_back(new VideoWriter(name.str(),VideoWriter::fourcc('D','I','V','X'),videos[i]->fps,videos[i]->resolucao));
 		name.str("");
 		name.clear();
 	}

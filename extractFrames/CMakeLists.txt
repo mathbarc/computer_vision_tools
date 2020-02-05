@@ -1,8 +1,8 @@
-find_package(OpenCV 3 COMPONENTS core highgui videoio imgcodecs)
+find_package(OpenCV 4 COMPONENTS core highgui videoio imgcodecs)
 
 if(${OpenCV_FOUND})
 else()
-        find_package(OpenCV 2 REQUIRED core highgui REQUIRED)
+        find_package(OpenCV 2 COMPONENTS core highgui REQUIRED)
 endif()
 
 find_package(Boost COMPONENTS filesystem REQUIRED)
