@@ -2,10 +2,12 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/videoio/videoio.hpp>
 #include <QImage>
 #include <iostream>
 
-VideoProcessor::VideoProcessor(std::string path_to_video)
+VideoProcessor::VideoProcessor(std::string id, std::string path_to_video)
+    : id(id)
 {
     this->cap.open(path_to_video);
     if(!this->cap.isOpened()){
@@ -13,6 +15,25 @@ VideoProcessor::VideoProcessor(std::string path_to_video)
     }
     this->waitPeriod = 1e6/(this->cap.get(cv::CAP_PROP_FPS));
     this->pauseStream = true;
+}
+
+VideoProcessor::VideoProcessor(std::string id, int index, double fps)
+    : id(id)
+{
+    this->cap.open(index, cv::CAP_DSHOW);
+    if(!this->cap.isOpened()){
+        throw std::string("Não foi possível abrir o vídeo.");
+    }
+
+    this->cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
+    this->cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
+    this->cap.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M','J','P','G'));
+    this->cap.set(cv::CAP_PROP_FPS, fps);
+    this->cap.set(cv::CAP_PROP_AUTOFOCUS, 0);
+    this->cap.set(cv::CAP_PROP_FOCUS, 0);
+
+    this->waitPeriod = 1e6/fps;
+    this->pauseStream = false;
 }
 
 void VideoProcessor::pause()
@@ -45,11 +66,19 @@ void VideoProcessor::previous()
 
 }
 
+void VideoProcessor::capture()
+{
+    this->cap >> this->frame;
+
+    emit captureImage(this->id, this->frame);
+}
+
 void VideoProcessor::run()
 {
     this->cap >> this->frame;
     while(!this->frame.empty()){
         emit showImage(frame);
+        emit showImageWithId(this->id, frame);
         QThread::usleep(this->waitPeriod);
         this->cap >> this->frame;
         while(this->pauseStream)
@@ -64,9 +93,13 @@ void VideoProcessor::run()
     }
 }
 
-VideoProcessor::~VideoProcessor(){
+VideoProcessor::~VideoProcessor()
+{
+    this->requestInterruption();
+    this->wait();
+
     this->cap.release();
-    std::cout<<"Encerrando Thread de captura"<<std::endl;
+//    std::cout<<"Encerrando Thread de captura"<<std::endl;
 }
 
 void VideoProcessor::playPauseVideo(){

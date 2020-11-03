@@ -68,7 +68,7 @@ void Controller::openVideo(QString path)
             delete this->videoThread;
             this->videoThread=NULL;
         }
-        this->videoThread = new VideoProcessor(pathVideo);
+        this->videoThread = new VideoProcessor("camera", pathVideo);
         this->videoThread->start();
     }
     catch(std::string message){

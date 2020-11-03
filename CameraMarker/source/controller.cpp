@@ -85,7 +85,7 @@ void Controller::openVideo(QString path)
             delete this->video_thread;
             this->video_thread=NULL;
         }
-        this->video_thread = new VideoProcessor(pathVideo);
+        this->video_thread = new VideoProcessor("camera", pathVideo);
         connect(this->video_thread,SIGNAL(showImage(cv::Mat)),this,SLOT(showImage(cv::Mat)));
         connect(this,SIGNAL(showImage(QImage)),this->window,SLOT(showImage(QImage)));
         connect(this->window, SIGNAL(playPauseVideo()), this->video_thread, SLOT(playPauseVideo()));

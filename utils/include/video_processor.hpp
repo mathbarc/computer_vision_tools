@@ -4,6 +4,7 @@
 #include <QThread>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <string>
 
 class VideoProcessor : public QThread
 {
@@ -14,9 +15,11 @@ class VideoProcessor : public QThread
         cv::Mat frame;
         double waitPeriod;
         bool pauseStream;
+        std::string id;
 
     public:
-        VideoProcessor(std::string path_to_video);
+        VideoProcessor(std::string id, std::string path_to_video);
+        VideoProcessor(std::string id, int index, double fps);
         ~VideoProcessor();
 
     public slots:
@@ -25,12 +28,13 @@ class VideoProcessor : public QThread
         void next();
         void previous();
         void run();
+        void capture();
+        void playPauseVideo();
 
     signals:
         void showImage(cv::Mat img);
-
-    public slots:
-        void playPauseVideo();
+        void showImageWithId(std::string id, cv::Mat img);
+        void captureImage(std::string id, cv::Mat img);
 
 };
 
