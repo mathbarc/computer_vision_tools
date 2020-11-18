@@ -12,7 +12,7 @@ bool KeyboardEventFilter::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if (ke->key() == Qt::Key_C) {
+        if (ke->key() == Qt::Key_Space) {
             emit capture();
             return true;
         }

@@ -27,8 +27,11 @@ VideoProcessor::VideoProcessor(std::string id, int index, double fps)
 
     this->cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
     this->cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
-    this->cap.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M','J','P','G'));
     this->cap.set(cv::CAP_PROP_FPS, fps);
+    this->cap.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M','J','P','G'));
+    this->cap.set(cv::CAP_PROP_EXPOSURE, -4);
+    this->cap.set(cv::CAP_PROP_AUTO_EXPOSURE, 0);
+    this->cap.set(cv::CAP_PROP_BRIGHTNESS, 100);
     this->cap.set(cv::CAP_PROP_AUTOFOCUS, 0);
     this->cap.set(cv::CAP_PROP_FOCUS, 0);
 
@@ -80,7 +83,7 @@ void VideoProcessor::run()
         emit showImage(frame);
         emit showImageWithId(this->id, frame);
         QThread::usleep(this->waitPeriod);
-        this->cap >> this->frame;
+        this->cap.read(this->frame);
         while(this->pauseStream)
         {
             if(this->isInterruptionRequested()){
@@ -105,3 +108,4 @@ VideoProcessor::~VideoProcessor()
 void VideoProcessor::playPauseVideo(){
     this->pauseStream = !this->pauseStream;
 }
+
