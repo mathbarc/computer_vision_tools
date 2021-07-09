@@ -12,7 +12,7 @@
 #include <opencv2/core/core.hpp>
 std::vector<std::string> imgPaths;
 
-cv::FileStorage storage("stereo_calib.xml", cv::FileStorage::WRITE);
+cv::FileStorage storage("image_dataset.xml", cv::FileStorage::WRITE);
 
 void show(std::string source, cv::Mat img)
 {
