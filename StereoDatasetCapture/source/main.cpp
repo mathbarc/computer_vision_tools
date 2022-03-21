@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
     VideoProcessor processor0("left", 0, 30);
-    VideoProcessor processor1("right", 1, 30);
+    VideoProcessor processor1("right", 2, 30);
     KeyboardEventFilter* filter = new KeyboardEventFilter();
 
 

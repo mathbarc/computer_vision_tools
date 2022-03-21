@@ -20,7 +20,11 @@ VideoProcessor::VideoProcessor(std::string id, std::string path_to_video)
 VideoProcessor::VideoProcessor(std::string id, int index, double fps)
     : id(id)
 {
+    #if WIN32
     this->cap.open(index, cv::CAP_DSHOW);
+    #else
+    this->cap.open(index, cv::CAP_V4L);
+    #endif
     if(!this->cap.isOpened()){
         throw std::string("Não foi possível abrir o vídeo.");
     }
