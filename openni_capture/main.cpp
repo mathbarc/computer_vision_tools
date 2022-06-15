@@ -4,6 +4,8 @@
 #include <iostream>
 #include <pcl/visualization/cloud_viewer.h>
 
+#include <fstream>
+
 cv::VideoCapture cap(1, cv::CAP_OPENNI2);
 
 void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
@@ -18,6 +20,7 @@ void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
 
     pcl::visualization::CloudViewer::ColorCloud* cloud = new pcl::visualization::CloudViewer::ColorCloud();
 
+//    std::ofstream pointCloudFile("point_cloud.txt");
 
     for(int i = 0; i<pointCloudFrame.rows; i++)
     {
@@ -31,10 +34,14 @@ void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
             point.y = coords[1];
             point.z = coords[2];
 
+//            pointCloudFile << coords[0] << " " << coords[1] << " " << coords[2] << " " << int(color[2]) << " " << int(color[1]) << " " << int(color[0]) << std::endl;
 
             cloud->push_back(point);
         }
     }
+
+//    pointCloudFile.close();
+//    cv::imwrite("frame.png", frame);
 
     viewer.addPointCloud(pcl::visualization::CloudViewer::ColorCloud::ConstPtr(cloud));
 
