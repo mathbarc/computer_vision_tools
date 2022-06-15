@@ -14,9 +14,7 @@ void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
 
     cap.grab();
     cap.retrieve(pointCloudFrame, cv::CAP_OPENNI_POINT_CLOUD_MAP);
-    cap.retrieve(frame, cv::CAP_OPENNI_QVGA_60HZ);
-
-    std::cout<<frame.type()<<" "<<frame.size()<<std::endl;
+    cap.retrieve(frame, cv::CAP_OPENNI_BGR_IMAGE);
 
     pcl::visualization::CloudViewer::ColorCloud* cloud = new pcl::visualization::CloudViewer::ColorCloud();
 
@@ -25,8 +23,8 @@ void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
     {
         for(int j = 0; j<pointCloudFrame.cols; j++)
         {
-            uchar color = frame.at<uchar>(i,j);
-            pcl::PointXYZRGB point(color, color, color );
+            cv::Vec3b color = frame.at<cv::Vec3b>(i,j);
+            pcl::PointXYZRGB point(color[2], color[1], color[0]);
 
             cv::Vec3f coords = pointCloudFrame.at<cv::Vec3f>(i,j);
             point.x = coords[0];
@@ -47,6 +45,11 @@ void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
 int main(int argc, char** argv)
 {
 
+    if(!cap.isOpened())
+       return -1;
+
+    cap.set(cv::CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION, 1);
+
 
     pcl::visualization::CloudViewer viewer("point cloud");
     viewer.runOnVisualizationThread(getPointCloud);
@@ -57,7 +60,6 @@ int main(int argc, char** argv)
     }
 
     cap.release();
-//    vid.release();
     
     return 0;
 
