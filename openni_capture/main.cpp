@@ -6,7 +6,8 @@
 
 #include <fstream>
 
-cv::VideoCapture cap(1, cv::CAP_OPENNI2);
+cv::VideoCapture cap(0, cv::CAP_OPENNI2);
+
 
 void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
 {
@@ -27,21 +28,24 @@ void getPointCloud(pcl::visualization::PCLVisualizer& viewer)
         for(int j = 0; j<pointCloudFrame.cols; j++)
         {
             cv::Vec3b color = frame.at<cv::Vec3b>(i,j);
-            pcl::PointXYZRGB point(color[2], color[1], color[0]);
+            if(color != cv::Vec3b(0,0,0))
+            {
+                pcl::PointXYZRGB point(color[2], color[1], color[0]);
 
-            cv::Vec3f coords = pointCloudFrame.at<cv::Vec3f>(i,j);
-            point.x = coords[0];
-            point.y = coords[1];
-            point.z = coords[2];
+                cv::Vec3f coords = pointCloudFrame.at<cv::Vec3f>(i,j);
+                point.x = coords[0];
+                point.y = coords[1];
+                point.z = coords[2];
 
-//            pointCloudFile << coords[0] << " " << coords[1] << " " << coords[2] << " " << int(color[2]) << " " << int(color[1]) << " " << int(color[0]) << std::endl;
+//                pointCloudFile << coords[0] << " " << coords[1] << " " << coords[2] << " " << int(color[2]) << " " << int(color[1]) << " " << int(color[0]) << std::endl;
 
-            cloud->push_back(point);
+                cloud->push_back(point);
+            }
         }
     }
 
 //    pointCloudFile.close();
-//    cv::imwrite("frame.png", frame);
+    cv::imwrite("frame.png", frame);
 
     viewer.addPointCloud(pcl::visualization::CloudViewer::ColorCloud::ConstPtr(cloud));
 

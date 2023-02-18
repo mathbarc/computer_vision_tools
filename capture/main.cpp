@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     cv::Size size(1920,1080);
     double fps = 30;
 
-    std::cout<<cap.set(cv::CAP_PROP_FOURCC,cv::VideoWriter::fourcc('M','J','P','G'))<<std::endl;
+//    std::cout<<cap.set(cv::CAP_PROP_FOURCC,cv::VideoWriter::fourcc('M','J','P','G'))<<std::endl;
     std::cout<<cap.set(cv::CAP_PROP_FRAME_WIDTH, size.width)<<std::endl;
     std::cout<<cap.set(cv::CAP_PROP_FRAME_HEIGHT, size.height)<<std::endl;
     std::cout<<cap.set(cv::CAP_PROP_FPS, fps)<<std::endl;
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 
     cv::VideoWriter vid("out.mp4", cv::VideoWriter::fourcc('A','V','C','1'), 30, size);
 
-    cv::namedWindow("Frame", cv::WINDOW_NORMAL);
+    cv::namedWindow("Frame", cv::WINDOW_KEEPRATIO);
     do
     {
         cap >> frame;
